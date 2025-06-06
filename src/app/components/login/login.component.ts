@@ -45,21 +45,28 @@ export class LoginComponent implements AfterViewInit {
       return;
     }
 
-    this.http.post<any>('http://localhost:5279/api/user/login', this.user).subscribe({
-      next: (res) => {
-        console.log('Login Success:', res);
-        localStorage.setItem('token', res.token);
-        this.showAlertMessage('Login Successful!', 'success');
-        this.router.navigate(['/home']); // Change if needed
-      },
-      error: (err) => {
-        console.error('Login Failed:', err);
-        let message = 'Login failed.';
-        if (err?.error) {
-          message = typeof err.error === 'string' ? err.error : 'Invalid credentials.';
-        }
-        this.showAlertMessage(message, 'error');
-      }
-    });
+    this.http
+      .post<any>('http://localhost:5279/api/user/login', this.user)
+      .subscribe({
+        next: (res) => {
+          console.log('Login Success:', res);
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('userId', res.user.id); // ✅ store user ID
+
+          this.showAlertMessage('Login Successful!', 'success');
+          this.router.navigate(['/home']); // Change if needed
+        },
+        error: (err) => {
+          console.error('Login Failed:', err);
+          let message = 'Login failed.';
+          if (err?.error) {
+            message =
+              typeof err.error === 'string'
+                ? err.error
+                : 'Invalid credentials.';
+          }
+          this.showAlertMessage(message, 'error');
+        },
+      });
   }
 }

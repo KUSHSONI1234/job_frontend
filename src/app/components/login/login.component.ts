@@ -50,7 +50,7 @@ export class LoginComponent implements AfterViewInit {
         console.log('Login Success:', res);
         localStorage.setItem('token', res.token);
         this.showAlertMessage('Login Successful!', 'success');
-        this.router.navigate(['/dashboard']); // Change if needed
+        this.router.navigate(['/home']); // Change if needed
       },
       error: (err) => {
         console.error('Login Failed:', err);

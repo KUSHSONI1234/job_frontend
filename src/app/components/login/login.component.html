@@ -1,13 +1,38 @@
+<div
+  *ngIf="showAlert"
+  class="custom-alert"
+  [ngClass]="{
+    'alert-success': alertType === 'success',
+    'alert-error': alertType === 'error'
+  }"
+>
+  {{ alertMessage }}
+</div>
+
+
 <div class="form-container">
   <h2>Login</h2>
   <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
     <label>Email</label>
-    <input type="email" name="email" [(ngModel)]="user.email" required />
+    <input
+      type="email"
+      name="email"
+      [(ngModel)]="user.email"
+      #fullNameInput
+      required
+    />
 
     <label>Password</label>
-    <input type="password" name="password" [(ngModel)]="user.password" required />
+    <input
+      type="password"
+      name="password"
+      [(ngModel)]="user.password"
+      required
+    />
 
     <button type="submit">Sign In</button>
-    <p>Don't have an account? <a routerLink="/register">Sign up</a></p>
+    <p class="log-btn">
+      Don't have an account? <a routerLink="/register">Sign up</a>
+    </p>
   </form>
 </div>

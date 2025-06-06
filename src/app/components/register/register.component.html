@@ -1,1 +1,29 @@
-<p>register works!</p>
+<div class="form-container">
+  <h2>Register</h2>
+  <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+    
+    <label>Full Name</label>
+    <input type="text" name="fullName" [(ngModel)]="user.fullName" required />
+
+    <label>Email</label>
+    <input type="email" name="email" [(ngModel)]="user.email" required />
+
+    <label>Phone Number</label>
+    <input type="tel" name="phone" [(ngModel)]="user.phone" required />
+
+    <label>Bio</label>
+    <textarea name="bio" rows="3" [(ngModel)]="user.bio" required></textarea>
+
+    <label>Password</label>
+    <input type="password" name="password" [(ngModel)]="user.password" required />
+
+    <label>Skills</label>
+    <input type="text" name="skills" [(ngModel)]="user.skills" placeholder="e.g. Angular, .NET, SQL" />
+
+    <label>Upload Resume</label>
+    <input type="file" (change)="onFileChange($event)" />
+
+    <button type="submit">Sign Up</button>
+    <p class="log-btn">Already have an account? <a routerLink="/login">Login</a></p>
+  </form>
+</div>

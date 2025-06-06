@@ -1,0 +1,53 @@
+.form-container {
+  max-width: 550px; /* Wider form */
+  margin: 30px auto; /* Reduced vertical margin */
+  padding: 20px 25px; /* Reduced padding */
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Reduced spacing between fields */
+}
+
+label {
+  font-weight: 600;
+  color: #444;
+}
+
+input,
+textarea {
+  padding: 8px 10px; /* Slightly smaller padding */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  resize: none;
+}
+
+button {
+  padding: 10px;
+  background-color: #8750f7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #6b3edc;
+}
+.log-btn a{
+  font-weight: 600;
+}

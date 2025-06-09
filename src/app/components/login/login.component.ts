@@ -51,12 +51,12 @@ export class LoginComponent implements AfterViewInit {
         next: (res: any) => {
           console.log('Login Success:', res);
 
-          // ✅ Save token if present
           if (res.token) {
             localStorage.setItem('token', res.token);
           }
+          localStorage.setItem('userId', res.user.id);
 
-          // ✅ Show success alert
+
           this.showTemporaryAlert(
             res?.message || 'Login successful!',
             'success'

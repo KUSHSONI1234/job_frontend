@@ -1,1 +1,12 @@
-<p>profile works!</p>
+<app-navbar></app-navbar>
+
+<div *ngIf="user">
+  <h2>{{ user.fullName }}</h2>
+  <p>Email: {{ user.email }}</p>
+  <p>Phone: {{ user.phone }}</p>
+  <p>Skills: {{ user.skills }}</p>
+  <p>Bio: {{ user.bio }}</p>
+  <p *ngIf="user.resumeFilePath">
+    <a [href]="user.resumeFilePath" target="_blank">View Resume</a>
+  </p>
+</div>

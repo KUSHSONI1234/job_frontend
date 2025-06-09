@@ -1,46 +1,49 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HttpErrorResponse,
+} from '@angular/common/http';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-register',
-  standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
+  standalone: true,
+  imports: [FormsModule, CommonModule, HttpClientModule, RouterLink],
 })
 export class RegisterComponent implements AfterViewInit {
-  user = {
-    fullName: '',
+  formData = {
+    fullname: '',
     email: '',
+    password: '',
     phone: '',
     bio: '',
-    password: '',
     skills: '',
-    resume: null as File | null,
+    resume: null,
   };
 
   alertMessage: string = '';
-  alertType: 'success' | 'error' | '' = '';
+  alertType: 'success' | 'error' = 'success';
   showAlert: boolean = false;
 
-  @ViewChild('fullNameInput') fullNameInputRef!: ElementRef;
+  @ViewChild('fullnameInput') fullnameInputRef!: ElementRef;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-  ngAfterViewInit() {
-    this.fullNameInputRef.nativeElement.focus();
+  ngAfterViewInit(): void {
+    this.fullnameInputRef.nativeElement.focus();
   }
 
   onFileChange(event: any) {
     const file = event.target.files[0];
-    this.user.resume = file;
-    console.log('📄 Resume Selected:', file);
+    this.formData.resume = file;
   }
 
-  showAlertMessage(message: string, type: 'success' | 'error') {
+  showTemporaryAlert(message: string, type: 'success' | 'error') {
     this.alertMessage = message;
     this.alertType = type;
     this.showAlert = true;
@@ -51,67 +54,48 @@ export class RegisterComponent implements AfterViewInit {
   }
 
   onSubmit() {
-    // Manual validation (frontend)
-    if (
-      !this.user.fullName.trim() ||
-      !this.user.email.trim() ||
-      !this.user.phone.trim() ||
-      !this.user.bio.trim() ||
-      !this.user.password.trim() ||
-      !this.user.skills.trim() ||
-      !this.user.resume
-    ) {
-      this.showAlertMessage('Please fill out all required fields.', 'error');
-      return;
+    const form = new FormData();
+    form.append('FullName', this.formData.fullname);
+    form.append('Email', this.formData.email);
+    form.append('Password', this.formData.password);
+    form.append('Phone', this.formData.phone);
+    form.append('Bio', this.formData.bio);
+    form.append('Skills', this.formData.skills);
+    if (this.formData.resume) {
+      form.append('Resume', this.formData.resume);
     }
 
-    const formData = new FormData();
-    formData.append('FullName', this.user.fullName);
-    formData.append('Email', this.user.email);
-    formData.append('Phone', this.user.phone);
-    formData.append('Bio', this.user.bio);
-    formData.append('Password', this.user.password);
-    formData.append('Skills', this.user.skills);
-    formData.append('Resume', this.user.resume);
+    this.http.post('http://localhost:5092/api/User/register', form).subscribe({
+      next: (res: any) => {
+        console.log('Success:', res);
+        this.showTemporaryAlert(
+          res?.message || 'Registration successful!',
+          'success'
+        );
 
-    this.http
-      .post('http://localhost:5279/api/user/register', formData)
-      .subscribe({
-        next: (res: any) => {
-          console.log('Registered:', res);
-          this.showAlertMessage(
-            res.message || 'Registered Successfully!',
-            'success'
-          );
-          this.resetBtn();
-        },
-        error: (err) => {
-          console.error('Error:', err);
-          let message = 'Something went wrong.';
-
-          if (typeof err.error === 'string') {
-            message = err.error;
-          } else if (err.error?.message) {
-            message = err.error.message;
-          } else if (err.error?.errors) {
-            const keys = Object.keys(err.error.errors);
-            message = err.error.errors[keys[0]][0];
-          }
-
-          this.showAlertMessage(message, 'error');
-        },
-      });
-  }
-
-  resetBtn() {
-    this.user = {
-      fullName: '',
-      email: '',
-      phone: '',
-      bio: '',
-      password: '',
-      skills: '',
-      resume: null,
-    };
+        setTimeout(() => {
+          this.router.navigateByUrl('/login');
+        }, 3000);
+      },
+      error: (err: HttpErrorResponse) => {
+        if (err.error instanceof Blob && err.error.type === 'text/plain') {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const errorMessage =
+              reader.result?.toString() || 'Something went wrong!';
+            console.error('Server Error:', errorMessage);
+            this.showTemporaryAlert(errorMessage, 'error');
+          };
+          reader.readAsText(err.error);
+        } else {
+          const errorMessage =
+            typeof err.error === 'string'
+              ? err.error
+              : err.error?.message || 'Something went wrong!';
+          console.error('Server Error:', errorMessage);
+          this.showTemporaryAlert(errorMessage, 'error');
+        }
+      },
+    });
   }
 }

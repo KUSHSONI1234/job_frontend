@@ -1,86 +1,69 @@
-<div
-  *ngIf="showAlert"
-  class="custom-alert"
-  [ngClass]="{
-    'alert-success': alertType === 'success',
-    'alert-error': alertType === 'error'
-  }"
->
+<div *ngIf="showAlert" class="custom-alert" [ngClass]="alertType">
   {{ alertMessage }}
 </div>
 
-
 <div class="form-container">
   <h2>Register</h2>
-  <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
-    
-    <label for="fullName">Full Name</label>
-    <input
-      id="fullName"
-      type="text"
-      name="fullName"
-      [(ngModel)]="user.fullName"
-      required
-      #fullNameInput
-    />
 
-    <label for="email">Email</label>
-    <input
-      id="email"
-      type="email"
-      name="email"
-      [(ngModel)]="user.email"
-      required
-    />
+  <form (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="form-group half-width">
+        <label>Full Name</label>
+        <input
+          type="text"
+          [(ngModel)]="formData.fullname"
+          name="fullname"
+          #fullnameInput
+          required
+        />
+      </div>
 
-    <label for="phone">Phone Number</label>
-    <input
-      id="phone"
-      type="tel"
-      name="phone"
-      [(ngModel)]="user.phone"
-      required
-    />
+      <div class="form-group half-width">
+        <label>Email</label>
+        <input
+          type="email"
+          [(ngModel)]="formData.email"
+          name="email"
+          required
+        />
+      </div>
+    </div>
 
-    <label for="bio">Bio</label>
-    <textarea
-      id="bio"
-      name="bio"
-      rows="3"
-      [(ngModel)]="user.bio"
-      required
-    ></textarea>
+    <div class="row">
+      <div class="form-group half-width">
+        <label>Password</label>
+        <input
+          type="password"
+          [(ngModel)]="formData.password"
+          name="password"
+          required
+        />
+      </div>
 
-    <label for="password">Password</label>
-    <input
-      id="password"
-      type="password"
-      name="password"
-      [(ngModel)]="user.password"
-      required
-    />
+      <div class="form-group half-width">
+        <label>Phone Number</label>
+        <input type="text" [(ngModel)]="formData.phone" name="phone" required />
+      </div>
+    </div>
 
-    <label for="skills">Skills</label>
-    <input
-      id="skills"
-      type="text"
-      name="skills"
-      [(ngModel)]="user.skills"
-      placeholder="e.g. Angular, .NET, SQL"
-    />
+    <div class="form-group">
+      <label>Bio</label>
+      <textarea [(ngModel)]="formData.bio" name="bio"></textarea>
+    </div>
 
-    <label for="resume">Upload Resume</label>
-    <input
-      id="resume"
-      type="file"
-      (change)="onFileChange($event)"
-    />
+    <div class="form-group">
+      <label>Skills</label>
+      <input type="text" [(ngModel)]="formData.skills" name="skills" />
+    </div>
 
-    <button type="submit">Sign Up</button>
+    <div class="form-group">
+      <label>Upload Resume</label>
+      <input type="file" (change)="onFileChange($event)" />
+    </div>
 
+    <button type="submit" class="submit-btn">Register</button>
     <p class="log-btn">
-      Already have an account?
-      <a routerLink="/login">Login</a>
+      Already have an account? <a routerLink="/login">Login</a>
     </p>
   </form>
 </div>

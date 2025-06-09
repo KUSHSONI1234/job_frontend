@@ -2,39 +2,14 @@
   <div class="left-nav">
     <h1>JobHunt</h1>
   </div>
-
   <div class="right-nav">
     <ul>
-      <li><a routerLink="/">Home</a></li>
-      <li><a routerLink="/jobs">Jobs</a></li>
-      <li><a routerLink="/browse">Browse</a></li>
-
-      <li *ngIf="!isLoggedIn()">
-        <button class="login-btn">
-          <a routerLink="/login">Login</a>
-        </button>
-      </li>
-
-      <!-- Show Profile Update if logged in -->
-      <li *ngIf="isLoggedIn()">
-        <button class="login-btn">
-          <a routerLink="/profile">Profile Update</a>
-        </button>
-      </li>
-
-      <li *ngIf="isLoggedIn()">
-        <button class="logout-btn" (click)="logout()">Logout</button>
-      </li>
-
-      <li>
-        <button class="admin-btn"><a routerLink="/admin">Admin</a></button>
-      </li>
+      <li><a href="">Home</a></li>
+      <li><a href="">Jobs</a></li>
+      <li><a href="">Browse</a></li>
+      <!-- <li></li> -->
+      <button><a routerLink="/login">Login</a></button>
+      <button class="admin"><a href="">Admin</a></button>
     </ul>
   </div>
-</div>
-
-<!-- Only show user details when logged in -->
-<div *ngIf="isLoggedIn()">
-  <p><strong>Bio:</strong> {{ userData.bio }}</p>
-  <p><strong>Skills:</strong> {{ userData.skills }}</p>
 </div>

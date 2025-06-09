@@ -1,37 +1,38 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { RouterLink, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
+  standalone: true,
+  imports: [FormsModule, CommonModule, HttpClientModule, RouterLink],
 })
 export class LoginComponent implements AfterViewInit {
-  user = {
+  loginData = {
     email: '',
-    password: '',
+    password: ''
   };
 
   alertMessage: string = '';
-  alertType: 'success' | 'error' | '' = '';
+  alertType: 'success' | 'error' = 'success';
   showAlert: boolean = false;
 
-  @ViewChild('fullNameInput') fullNameInputRef!: ElementRef;
+  @ViewChild('emailInput') emailInputRef!: ElementRef;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient,private router:Router) {}
 
-  ngAfterViewInit() {
-    this.fullNameInputRef.nativeElement.focus();
+  ngAfterViewInit(): void {
+    this.emailInputRef.nativeElement.focus();
   }
 
-  showAlertMessage(message: string, type: 'success' | 'error') {
+  showTemporaryAlert(message: string, type: 'success' | 'error') {
     this.alertMessage = message;
     this.alertType = type;
+    
     this.showAlert = true;
 
     setTimeout(() => {
@@ -39,34 +40,31 @@ export class LoginComponent implements AfterViewInit {
     }, 3000);
   }
 
-  onSubmit() {
-    if (!this.user.email.trim() || !this.user.password.trim()) {
-      this.showAlertMessage('Please enter email and password.', 'error');
-      return;
-    }
-
-    this.http
-      .post<any>('http://localhost:5279/api/user/login', this.user)
-      .subscribe({
-        next: (res) => {
-          console.log('Login Success:', res);
-          localStorage.setItem('token', res.token);
-          localStorage.setItem('userId', res.user.id); // ✅ store user ID
-
-          this.showAlertMessage('Login Successful!', 'success');
-          this.router.navigate(['/home']); // Change if needed
-        },
-        error: (err) => {
-          console.error('Login Failed:', err);
-          let message = 'Login failed.';
-          if (err?.error) {
-            message =
-              typeof err.error === 'string'
-                ? err.error
-                : 'Invalid credentials.';
-          }
-          this.showAlertMessage(message, 'error');
-        },
-      });
+  onLogin() {
+    this.http.post('http://localhost:5092/api/User/login', this.loginData).subscribe({
+      next: (res: any) => {
+        console.log('Login Success:', res);
+        this.showTemporaryAlert(res?.message || 'Login successful!', 'success');
+        this.router.navigateByUrl('/home');
+      },
+      error: (err: HttpErrorResponse) => {
+        if (err.error instanceof Blob && err.error.type === 'text/plain') {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const errorMessage = reader.result?.toString() || 'Something went wrong!';
+            console.error('Server Error:', errorMessage);
+            this.showTemporaryAlert(errorMessage, 'error');
+          };
+          reader.readAsText(err.error);
+        } else {
+          const errorMessage =
+            typeof err.error === 'string'
+              ? err.error
+              : err.error?.message || 'Something went wrong!';
+          console.error('Server Error:', errorMessage);
+          this.showTemporaryAlert(errorMessage, 'error');
+        }
+      },
+    });
   }
 }

@@ -1,54 +1,62 @@
 .navbar {
   width: 100%;
   height: 100px;
-  background-color: #fefefe; /* Clean and modern background */
   display: flex;
-  padding: 0 6%;
-  justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle box-shadow */
+  justify-content: space-between;
+  padding: 0 6%;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+ 
+}
+
+.left-nav h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #333;
 }
 
 .right-nav ul {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-}
-
-.left-nav h1 {
-  font-size: 35px;
+  gap: 2rem;
+  list-style: none;
 }
 
 .right-nav ul li a {
   font-size: 18px;
+  color: #222;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+
+.right-nav button {
+  padding: 8px 18px;
+  border-radius: 8px;
+  /* background-color: #0077ff; */
+  outline: 0;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid rgb(159, 154, 154);
+  transition: background-color 0.3s ease;
+}
+
+.right-nav button a {
+  font-size: 16px;
+
   font-weight: 500;
   color: black;
 }
 
-.right-nav .login-btn {
-  border: 1px solid rgb(121, 119, 119);
-  background-color: white;
-  padding: 8px 15px;
-  border-radius: 8px;
-  outline: 0;
-}
-
-.right-nav button a {
-  color: black;
-  font-size: 16px;
-  /* font-weight: bold; */
-}
-
-.right-nav .admin-btn {
+.right-nav .admin {
   background-color: #8750f7;
-  padding: 8px 15px;
-  border-radius: 8px;
-  border: 0;
-  outline: 0;
+  color: white;
 }
 
-.right-nav .admin-btn a {
-  color: white !important;
-  /* font-weight: bold; */
+.right-nav .admin a{
+    color: white;
+    border: 0;
+    outline: 0;
 }
-

@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -14,7 +18,7 @@ import { Router, RouterLink } from '@angular/router';
 export class LoginComponent implements AfterViewInit {
   loginData = {
     email: '',
-    password: ''
+    password: '',
   };
 
   alertMessage: string = '';
@@ -23,7 +27,7 @@ export class LoginComponent implements AfterViewInit {
 
   @ViewChild('emailInput') emailInputRef!: ElementRef;
 
-  constructor(private http: HttpClient,private router:Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngAfterViewInit(): void {
     this.emailInputRef.nativeElement.focus();
@@ -32,7 +36,7 @@ export class LoginComponent implements AfterViewInit {
   showTemporaryAlert(message: string, type: 'success' | 'error') {
     this.alertMessage = message;
     this.alertType = type;
-    
+
     this.showAlert = true;
 
     setTimeout(() => {
@@ -41,30 +45,48 @@ export class LoginComponent implements AfterViewInit {
   }
 
   onLogin() {
-    this.http.post('http://localhost:5092/api/User/login', this.loginData).subscribe({
-      next: (res: any) => {
-        console.log('Login Success:', res);
-        this.showTemporaryAlert(res?.message || 'Login successful!', 'success');
-        this.router.navigateByUrl('/home');
-      },
-      error: (err: HttpErrorResponse) => {
-        if (err.error instanceof Blob && err.error.type === 'text/plain') {
-          const reader = new FileReader();
-          reader.onload = () => {
-            const errorMessage = reader.result?.toString() || 'Something went wrong!';
+    this.http
+      .post('http://localhost:5092/api/User/login', this.loginData)
+      .subscribe({
+        next: (res: any) => {
+          console.log('Login Success:', res);
+
+          // ✅ Save token if present
+          if (res.token) {
+            localStorage.setItem('token', res.token);
+          }
+
+          // ✅ Show success alert
+          this.showTemporaryAlert(
+            res?.message || 'Login successful!',
+            'success'
+          );
+
+          // ✅ Navigate after 3 seconds
+          setTimeout(() => {
+            this.router.navigateByUrl('/home');
+          }, 3000);
+        },
+
+        error: (err: HttpErrorResponse) => {
+          if (err.error instanceof Blob && err.error.type === 'text/plain') {
+            const reader = new FileReader();
+            reader.onload = () => {
+              const errorMessage =
+                reader.result?.toString() || 'Something went wrong!';
+              console.error('Server Error:', errorMessage);
+              this.showTemporaryAlert(errorMessage, 'error');
+            };
+            reader.readAsText(err.error);
+          } else {
+            const errorMessage =
+              typeof err.error === 'string'
+                ? err.error
+                : err.error?.message || 'Something went wrong!';
             console.error('Server Error:', errorMessage);
             this.showTemporaryAlert(errorMessage, 'error');
-          };
-          reader.readAsText(err.error);
-        } else {
-          const errorMessage =
-            typeof err.error === 'string'
-              ? err.error
-              : err.error?.message || 'Something went wrong!';
-          console.error('Server Error:', errorMessage);
-          this.showTemporaryAlert(errorMessage, 'error');
-        }
-      },
-    });
+          }
+        },
+      });
   }
 }

@@ -7,13 +7,14 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule, RouterLink],
+  imports: [FormsModule, CommonModule, HttpClientModule, RouterLink, NavbarComponent],
 })
 export class LoginComponent implements AfterViewInit {
   loginData = {

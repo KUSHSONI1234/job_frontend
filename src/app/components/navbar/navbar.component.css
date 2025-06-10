@@ -33,9 +33,7 @@
   transition: color 0.3s ease;
 }
 
-.right-nav ul li a:hover {
-  color: #0077ff;
-}
+
 
 .nav-btn {
   padding: 8px 16px;

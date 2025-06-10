@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  imports:[NavbarComponent,FormsModule,CommonModule]
+  imports: [NavbarComponent, FormsModule, CommonModule]
 })
 export class ProfileComponent implements OnInit {
   user: any = null;
@@ -17,7 +17,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     const userId = localStorage.getItem('userId');
-
     if (userId) {
       this.http.get(`http://localhost:5092/api/User/${userId}`).subscribe({
         next: (response: any) => {

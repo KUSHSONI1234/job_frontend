@@ -1,12 +1,24 @@
 <app-navbar></app-navbar>
 
-<div *ngIf="user">
-  <h2>{{ user.fullName }}</h2>
-  <p>Email: {{ user.email }}</p>
-  <p>Phone: {{ user.phone }}</p>
-  <p>Skills: {{ user.skills }}</p>
-  <p>Bio: {{ user.bio }}</p>
-  <p *ngIf="user.resumeFilePath">
-    <a [href]="user.resumeFilePath" target="_blank">View Resume</a>
-  </p>
+<div class="profile-container" *ngIf="user">
+  <div class="profile-card">
+    <h1 style="text-align: center; margin-bottom: 1.2rem">Profile</h1>
+
+    <h2 class="profile-name">{{ user.fullName }}</h2>
+    <p class="profile-bio">{{ user.bio }}</p>
+
+    <div class="profile-info">
+      <p><i class="fas fa-envelope"></i> {{ user.email }}</p>
+      <p><i class="fas fa-phone"></i> {{ user.phone }}</p>
+      <p><strong>Skills:</strong> {{ user.skills }}</p>
+    </div>
+
+    <div *ngIf="user.resumeFilePath" class="profile-resume">
+      <a [href]="user.resumeFilePath" target="_blank" class="resume-link">
+        View Resume
+      </a>
+    </div>
+  </div>
 </div>
+
+<div>Applied Jobs</div>

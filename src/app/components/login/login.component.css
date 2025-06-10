@@ -73,7 +73,6 @@ input:focus {
   color: #3b1d78;
 }
 
-
 .custom-alert {
   position: fixed;
   top: 30px;
@@ -109,7 +108,8 @@ input:focus {
     opacity: 0;
     transform: translateX(-50%) translateY(-10px);
   }
-  10%, 90% {
+  10%,
+  90% {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
@@ -118,3 +118,10 @@ input:focus {
     transform: translateX(-50%) translateY(-10px);
   }
 }
+
+input:focus {
+  outline: none;
+  border-color: #8750f7;
+  box-shadow: 0 0 0 3px rgba(135, 80, 247, 0.2);
+}
+

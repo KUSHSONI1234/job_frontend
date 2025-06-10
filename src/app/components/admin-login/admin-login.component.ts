@@ -1,24 +1,31 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-login',
-  imports: [FormsModule,CommonModule,NavbarComponent],
+  imports: [FormsModule, CommonModule, NavbarComponent, RouterLink],
   templateUrl: './admin-login.component.html',
-  styleUrl: './admin-login.component.css'
+  styleUrl: './admin-login.component.css',
 })
-export class AdminLoginComponent {
-    loginData = {
+export class AdminLoginComponent implements AfterViewInit {
+  @ViewChild('emailInput') emailInputRef!: ElementRef;
+
+  constructor(private http: HttpClient, private router: Router) {}
+
+  ngAfterViewInit(): void {
+    this.emailInputRef.nativeElement.focus();
+  }
+  loginData = {
     email: '',
-    password: ''
+    password: '',
   };
 
   showAlert = false;
   alertMessage = '';
   alertType = '';
 
-  constructor(private router: Router) {}
 }

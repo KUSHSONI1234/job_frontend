@@ -1,10 +1,9 @@
-
 .admin-login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-    background: linear-gradient(145deg, #dceeff, #f3f3f3);
+  background: linear-gradient(145deg, #dceeff, #f3f3f3);
 
   padding: 30px;
 }
@@ -119,7 +118,8 @@ label {
     opacity: 0;
     transform: translateX(-50%) translateY(-10px);
   }
-  10%, 90% {
+  10%,
+  90% {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }

@@ -62,7 +62,6 @@ export class LoginComponent implements AfterViewInit {
             'success'
           );
 
-          // ✅ Navigate after 3 seconds
           setTimeout(() => {
             this.router.navigateByUrl('/home');
           }, 3000);

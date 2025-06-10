@@ -3,11 +3,11 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-reg',
-  imports: [NavbarComponent, FormsModule, CommonModule, ReactiveFormsModule],
+  imports: [NavbarComponent, FormsModule, CommonModule, ReactiveFormsModule,RouterLink],
   templateUrl: './admin-reg.component.html',
   styleUrl: './admin-reg.component.css',
 })

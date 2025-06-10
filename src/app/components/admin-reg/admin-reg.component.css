@@ -66,10 +66,6 @@ label {
   background-color: #6d3ed0;
 }
 
-.submit-btn:disabled {
-  background-color: #aaa;
-  cursor: not-allowed;
-}
 
 .log-btn {
   text-align: center;

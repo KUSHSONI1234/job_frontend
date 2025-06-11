@@ -1,9 +1,12 @@
 <app-navbar></app-navbar>
+<div *ngIf="showAlert" class="alert-box" [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'danger'}">
+  {{ alertMessage }}
+</div>
 
 <div class="admin-login-container">
   <div class="admin-login-card">
     <h2>Admin Login</h2>
-    <form>
+    <form (ngSubmit)="onLogin()" #adminForm="ngForm">
       <div class="form-group">
         <label>Email</label>
         <input

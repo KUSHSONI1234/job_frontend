@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
@@ -8,67 +8,77 @@ import { CommonModule } from '@angular/common';
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  imports: [FormsModule, CommonModule, RouterLink],
   standalone: true,
+  imports: [FormsModule, CommonModule, RouterLink],
 })
 export class RegisterComponent implements AfterViewInit {
-  firstName: string = '';
-  lastName: string = '';
-  email: string = '';
-  password: string = '';
+  // Form fields
+  firstName = '';
+  lastName = '';
+  email = '';
+  password = '';
+
+  // Alert UI
+  alertMessage = '';
+  alertType: 'success' | 'error' | '' = '';
 
   @ViewChild('emailInput') emailInputRef!: ElementRef;
 
-  alertMessage: string = '';
-  alertType: 'success' | 'error' | '' = '';
-
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngAfterViewInit() {
     this.emailInputRef.nativeElement.focus();
   }
 
-  showAlert(message: string, type: 'success' | 'error') {
+  private showAlert(message: string, type: 'success' | 'error') {
     this.alertMessage = message;
     this.alertType = type;
     setTimeout(() => {
       this.alertMessage = '';
       this.alertType = '';
-    }, 3000); // auto dismiss after 3s
+    }, 3000);
+  }
+
+  private isFormValid(): boolean {
+    return this.firstName.trim() !== '' &&
+           this.lastName.trim() !== '' &&
+           this.email.trim() !== '' &&
+           this.password.trim() !== '';
+  }
+
+  private extractBackendError(error: any): string {
+    if (error?.error && typeof error.error === 'string') {
+      return error.error;
+    }
+    if (error?.error?.message) {
+      return error.error.message;
+    }
+    return 'Server error occurred.';
   }
 
   register() {
-    // ✅ Client-side field validation
-    if (!this.firstName || !this.lastName || !this.email || !this.password) {
+    if (!this.isFormValid()) {
       this.showAlert('Please fill in all fields.', 'error');
       return;
     }
 
     const userData = {
-      firstName: this.firstName,
-      lastName: this.lastName,
-      email: this.email,
+      firstName: this.firstName.trim(),
+      lastName: this.lastName.trim(),
+      email: this.email.trim(),
       password: this.password,
     };
 
-    this.http
-      .post('http://localhost:5089/api/user/register', userData)
-      .subscribe({
-        next: (response: any) => {
-          console.log('User registered:', response);
-          this.showAlert('Registration successful!', 'success');
-        },
-        error: (err) => {
-          // ✅ Show backend error message if available
-          let backendError = 'Server error occurred.';
-          if (err.error && typeof err.error === 'string') {
-            backendError = err.error;
-          } else if (err.error?.message) {
-            backendError = err.error.message;
-          }
-          console.error('Registration failed:', backendError);
-          this.showAlert(backendError, 'error');
-        },
-      });
+    this.http.post('http://localhost:5089/api/user/register', userData).subscribe({
+      next: () => {
+        this.showAlert('Registration successful!', 'success');
+        setTimeout(() => this.router.navigateByUrl('/login'), 3000);
+      },
+      error: (err) => {
+        const backendError = this.extractBackendError(err);
+        console.error('Registration failed:', backendError);
+        this.showAlert(backendError, 'error');
+      },
+    });
   }
 }

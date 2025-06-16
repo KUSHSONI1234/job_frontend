@@ -1,3 +1,14 @@
+<div
+  *ngIf="alertMessage"
+  [ngClass]="{
+    'alert-box': true,
+    'alert-success': alertType === 'success',
+    'alert-error': alertType === 'error'
+  }"
+>
+  {{ alertMessage }}
+</div>
+
 <div class="form-container">
   <form (ngSubmit)="login()" #loginForm="ngForm" class="register-form">
     <h2>Login</h2>
@@ -32,4 +43,10 @@
       Don't have an account? <a routerLink="/register">Register</a>
     </p>
   </form>
+</div>
+
+
+
+<div *ngIf="fullName" class="welcome-msg">
+  Welcome, {{ fullName }}!
 </div>

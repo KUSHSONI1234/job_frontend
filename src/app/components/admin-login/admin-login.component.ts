@@ -1,11 +1,29 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-login',
-  imports: [],
   templateUrl: './admin-login.component.html',
-  styleUrl: './admin-login.component.css'
+  styleUrls: ['./admin-login.component.css'],
+  imports:[FormsModule,CommonModule]
 })
-export class AdminLoginComponent {
+export class AdminLoginComponent implements AfterViewInit {
+  adminEmail: string = '';
+  adminPassword: string = '';
 
+  @ViewChild('adminEmailInput') emailInputRef!: ElementRef;
+
+  ngAfterViewInit() {
+    this.emailInputRef.nativeElement.focus();
+  }
+
+  adminLogin() {
+    console.log("Admin Login:", {
+      email: this.adminEmail,
+      password: this.adminPassword
+    });
+    alert("Admin login successful!");
+  }
 }

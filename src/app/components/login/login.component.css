@@ -64,12 +64,12 @@ button:hover {
   box-shadow: 0 6px 18px rgba(0, 123, 255, 0.3);
 }
 
-.log-btn{
+.log-btn {
   margin-top: 1rem;
   text-align: center;
 }
 
-.log-btn a{
-  color: #0B7EFB;
+.log-btn a {
+  color: #0b7efb;
   font-weight: 600;
 }

@@ -34,10 +34,16 @@ export class RegisterComponent implements AfterViewInit {
     setTimeout(() => {
       this.alertMessage = '';
       this.alertType = '';
-    }, 3000); // 3 seconds
+    }, 3000); // auto dismiss after 3s
   }
 
   register() {
+    // ✅ Client-side field validation
+    if (!this.firstName || !this.lastName || !this.email || !this.password) {
+      this.showAlert('Please fill in all fields.', 'error');
+      return;
+    }
+
     const userData = {
       firstName: this.firstName,
       lastName: this.lastName,
@@ -45,16 +51,24 @@ export class RegisterComponent implements AfterViewInit {
       password: this.password,
     };
 
-    this.http.post('http://localhost:5089/api/user/register', userData).subscribe({
-      next: (response) => {
-        console.log('User registered:', response);
-        this.showAlert('Registration successful!', 'success');
-      },
-      error: (err) => {
-        const backendError = err?.error ?? 'Server error occurred.';
-        console.error('Registration failed:', backendError);
-        this.showAlert(backendError, 'error');
-      },
-    });
+    this.http
+      .post('http://localhost:5089/api/user/register', userData)
+      .subscribe({
+        next: (response: any) => {
+          console.log('User registered:', response);
+          this.showAlert('Registration successful!', 'success');
+        },
+        error: (err) => {
+          // ✅ Show backend error message if available
+          let backendError = 'Server error occurred.';
+          if (err.error && typeof err.error === 'string') {
+            backendError = err.error;
+          } else if (err.error?.message) {
+            backendError = err.error.message;
+          }
+          console.error('Registration failed:', backendError);
+          this.showAlert(backendError, 'error');
+        },
+      });
   }
 }

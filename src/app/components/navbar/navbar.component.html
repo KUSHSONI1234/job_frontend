@@ -1,37 +1,9 @@
 <div class="navbar">
-  <div class="left-nav">
-    <h1>JobHunt</h1>
+  <div class="left-navbar">
+    <img src="images/logo.svg" alt="" />
   </div>
-
-  <div class="right-nav">
-    <ul>
-      <li><a routerLink="/">Home</a></li>
-      <li><a routerLink="/jobs">Jobs</a></li>
-      <li><a routerLink="/browse">Browse</a></li>
-
-      <li *ngIf="!isLoggedIn">
-        <button class="nav-btn">
-          <a routerLink="/login">Login</a>
-        </button>
-      </li>
-
-      <li *ngIf="isLoggedIn" class="dropdown-container">
-        <button class="nav-btn" (click)="toggleDropdown($event)">
-          Profile
-        </button>
-        <div class="dropdown-menu" [class.show]="dropdownOpen">
-          <button class="dropdown-item" (click)="goToProfile()">
-            View Profile
-          </button>
-          <button class="dropdown-item" (click)="logout()">Logout</button>
-        </div>
-      </li>
-
-      <li>
-        <button class="nav-btn admin">
-          <a routerLink="/admin-login">Admin</a>
-        </button>
-      </li>
-    </ul>
+  <div class="right-navbar">
+    <button><a routerLink="">Admin</a></button>
+    <button><a routerLink="/register">Login</a></button>
   </div>
 </div>

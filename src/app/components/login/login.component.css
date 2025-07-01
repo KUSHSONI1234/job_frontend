@@ -1,0 +1,114 @@
+.form-container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 30px;
+  background: #0f172a; /* dark slate background */
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+h2 {
+  text-align: center;
+  color: #f1f5f9; /* light heading */
+  font-weight: 600;
+}
+
+p {
+  margin: 10px 0 30px;
+  color: #94a3b8; /* subtle gray */
+  font-size: 14px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #e2e8f0; /* light label */
+}
+
+input {
+  padding: 10px 14px;
+  background-color: #1e293b; /* dark input bg */
+  border: 1px solid #334155;
+  border-radius: 8px;
+  transition: border-color 0.3s, background-color 0.3s;
+  font-size: 15px;
+  color: #f8fafc;
+}
+
+input::placeholder {
+  color: #94a3b8;
+}
+
+input:focus {
+  border-color: #3b82f6;
+  background-color: #1e293b;
+  outline: none;
+}
+
+/* === Password field with toggle === */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.toggle-icon {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+  color: #94a3b8;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #3b82f6; /* Tailwind-style blue */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 0 transparent;
+}
+
+button:hover {
+  background-color: #2563eb; /* darker blue on hover */
+  transform: scale(1.03);
+  box-shadow: 0 5px 15px rgba(37, 99, 235, 0.1);
+}
+
+
+/* === Bottom text === */
+.login-btn {
+  margin: 0;
+  text-align: center;
+}
+
+.login-btn a {
+  color: #60a5fa;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login-btn a:hover {
+  text-decoration: underline;
+}

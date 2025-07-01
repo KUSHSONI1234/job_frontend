@@ -1,0 +1,131 @@
+.home-section {
+  /* background-color: antiquewhite; */
+  width: 100%;
+  padding: 0 8%;
+  margin-top: 8rem;
+}
+.home-title h1 {
+  max-width: 75%;
+  /* background-color: aqua; */
+  margin: 0 auto;
+  text-align: center;
+  font-size: 96px;
+  font-weight: 800;
+}
+.home-title span {
+  display: flex;
+  align-items: center;
+  /* max-width: 100%; */
+  /* background-color: antiquewhite; */
+  /* background-color: aqua; */
+  /* margin: 0 auto; */
+  /* text-align: center; */
+  justify-content: center;
+}
+.home-title h1 img {
+  width: 200px;
+  height: auto;
+}
+
+.home-title p {
+  max-width: 100%;
+  /* background-color: aqua; */
+  /* margin: 0 auto; */
+  text-align: center;
+  margin: 2rem 0;
+  font-size: 1.25rem;
+}
+
+.job-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: #0f172a;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  width: fit-content;
+  margin: 20px auto;
+}
+
+.search-input,
+.location-input {
+  display: flex;
+  align-items: center;
+  background-color: #1e293b;
+  padding: 10px 14px;
+  border: 1px solid #5cadf9be;
+  border-radius: 8px;
+  gap: 10px;
+}
+
+.search-input i,
+.location-input i {
+  color: #94a3b8;
+  font-size: 16px;
+}
+
+.search-input input,
+.location-input input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #f8fafc;
+  font-size: 18px;
+  width: 200px;
+}
+
+.search-btn {
+  background-color: #3b82f6;
+  border: none;
+  color: white;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.search-btn:hover {
+  background-color: #2563eb;
+  transform: scale(1.03);
+}
+
+.logo-carousel {
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 0;
+  margin-top: 5rem;
+  background-color: transparent;
+}
+
+.logo-track {
+  display: flex;
+  width: fit-content;
+  animation: scroll-logos 15s linear infinite;
+  gap: 10rem; /* increased spacing between images */
+}
+
+.logo-track img {
+  height: 50px;
+  width: auto;
+  max-width: 250px;
+  object-fit: contain;
+  flex-shrink: 0;
+  opacity: 0.85;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.logo-track img:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+@keyframes scroll-logos {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

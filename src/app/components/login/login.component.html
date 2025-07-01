@@ -1,0 +1,43 @@
+<div class="form-container">
+  <h2>Sign in to Job Portal</h2>
+  <p>Welcome back! Please sign in to continue</p>
+  <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+
+    <div class="form-group">
+      <label>Email</label>
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="loginData.email"  #emailInput
+        placeholder="Enter your email address"
+        required
+      />
+    </div>
+
+    <div class="form-group password-group">
+      <label>Password</label>
+      <div class="password-wrapper">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          name="password"
+          placeholder="Enter your password"
+          [(ngModel)]="loginData.password"
+          required
+        />
+
+        <span class="toggle-icon" (click)="togglePasswordVisibility()">
+          <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+        </span>
+      </div>
+    </div>
+
+    <button type="submit">Login</button>
+
+    <p class="login-btn">
+      Don’t have an account? <a routerLink="/register">Sign up</a>
+    </p>
+
+  </form>
+</div>
+
+

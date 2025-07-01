@@ -1,6 +1,6 @@
 .form-container {
   max-width: 400px;
-  margin: 40px auto; /* Added 80px bottom margin */
+  margin: 40px auto; 
   padding: 30px;
   background: #0f172a;
   border-radius: 12px;
@@ -11,13 +11,13 @@
 
 h2 {
   text-align: center;
-  color: #f1f5f9; /* light heading */
+  color: #f1f5f9;
   font-weight: 600;
 }
 
 p {
   margin: 10px 0 30px;
-  color: #94a3b8; /* muted text */
+  color: #94a3b8; 
   font-size: 14px;
   text-align: center;
 }
@@ -53,7 +53,6 @@ input:focus {
   outline: none;
 }
 
-/* === Password wrapper === */
 .password-wrapper {
   position: relative;
   display: flex;
@@ -73,7 +72,6 @@ input:focus {
   font-size: 16px;
 }
 
-/* === Button === */
 button {
   width: 100%;
   padding: 12px;
@@ -95,7 +93,6 @@ button:hover {
   box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
 }
 
-/* === Bottom text === */
 .reg-btn {
   margin: 0;
   text-align: center;
@@ -111,4 +108,54 @@ button:hover {
 
 .reg-btn a:hover {
   text-decoration: underline;
+}
+
+.form-section {
+  padding-bottom: 40px; 
+}
+.custom-alert {
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 280px;
+  max-width: 400px;
+  z-index: 9999;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  animation: fadeSlideDown 0.3s ease-in-out;
+  transition: opacity 0.3s ease;
+  border: 1px solid transparent;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.custom-alert.success {
+  background-color: #D4EDDA;
+  color: #155724;
+  border-color: #c3e6cb;
+}
+
+.custom-alert.danger {
+  background-color: #F8D7DA;
+  color: #721C24;
+  border-color: #f5c6cb;
+}
+
+@keyframes fadeSlideDown {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }

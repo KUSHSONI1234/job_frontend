@@ -1,5 +1,10 @@
 <app-navbar></app-navbar>
 
+<div *ngIf="showAlertBox" class="custom-alert" [ngClass]="alertType">
+  <span>{{ alertMessage }}</span>
+</div>
+
+
 <div class="form-container">
   <h2>Sign in to Job Portal</h2>
   <p>Welcome back! Please sign in to continue</p>

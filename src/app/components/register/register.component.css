@@ -1,13 +1,12 @@
 .form-container {
   max-width: 400px;
-  margin: 40px auto; 
+  margin: 40px auto;
   padding: 30px;
   background: #0f172a;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(8px);
 }
-
 
 h2 {
   text-align: center;
@@ -17,7 +16,7 @@ h2 {
 
 p {
   margin: 10px 0 30px;
-  color: #94a3b8; 
+  color: #94a3b8;
   font-size: 14px;
   text-align: center;
 }
@@ -111,8 +110,9 @@ button:hover {
 }
 
 .form-section {
-  padding-bottom: 40px; 
+  padding-bottom: 40px;
 }
+
 .custom-alert {
   position: fixed;
   top: 50px;
@@ -138,14 +138,14 @@ button:hover {
 }
 
 .custom-alert.success {
-  background-color: #D4EDDA;
+  background-color: #d4edda;
   color: #155724;
   border-color: #c3e6cb;
 }
 
 .custom-alert.danger {
-  background-color: #F8D7DA;
-  color: #721C24;
+  background-color: #f8d7da;
+  color: #721c24;
   border-color: #f5c6cb;
 }
 

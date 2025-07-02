@@ -61,9 +61,9 @@ export class RegisterComponent implements AfterViewInit {
       this.user.password
     ) {
       this.http
-        .post('http://localhost:5045/api/User/register', this.user)
+        .post('http://localhost:5186/api/User/register', this.user)
         .subscribe({
-          next: (res) => {
+          next: (res: any) => {
             console.log('User registered:', res);
             this.showAlert('Registration successful!', 'success');
             this.resetForm();
@@ -73,7 +73,14 @@ export class RegisterComponent implements AfterViewInit {
           },
           error: (err) => {
             console.error('Registration failed:', err);
-            this.showAlert('Registration failed. Try again.', 'danger');
+
+            // Handle if error has a message from server
+            const messageFromServer =
+              err?.error?.message ||
+              err?.error ||
+              'Registration failed. Try again.';
+
+            this.showAlert(messageFromServer, 'danger');
           },
         });
     } else {

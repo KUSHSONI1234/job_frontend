@@ -1,5 +1,17 @@
 <app-navbar></app-navbar>
 
+<div
+  class="custom-alert"
+  *ngIf="showAlertBox"
+  [ngStyle]="{
+    backgroundColor: alertType === 'success' ? '#D4EDDA' : '#F8D7DA',
+    color: alertType === 'success' ? '#155724' : '#721C24'
+  }"
+>
+  {{ alertMessage }}
+</div>
+
+
 <div class="form-container">
   <h2>Recruiter Sign Up</h2>
   <p>Welcome back! Please sign in to continue</p>
@@ -36,6 +48,6 @@
     <button type="submit">Register</button>
     <p class="reg-btn">
       Already have an account? <a routerLink="/admin-login">Sign in</a>
-    </p>s
+    </p>
   </form>
 </div>

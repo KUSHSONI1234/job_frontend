@@ -1,3 +1,11 @@
+<div *ngIf="successMessage" class="alert alert-success alert-fixed">
+  {{ successMessage }}
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger alert-fixed">
+  {{ errorMessage }}
+</div>
+
 <div class="login-container">
   <h1>Sign in to Job Portal</h1>
   <p>Welcome back! Please sign in to continue.</p>

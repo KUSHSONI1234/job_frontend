@@ -40,7 +40,6 @@ export class Login implements AfterViewInit {
             this.successMessage = response.message || 'Login successful!';
             this.errorMessage = '';
 
-            // Optionally store token in localStorage
             if (response.token) {
               localStorage.setItem('authToken', response.token);
             }
@@ -49,8 +48,7 @@ export class Login implements AfterViewInit {
             setTimeout(() => {
               this.router.navigateByUrl('/home');
             }, 1500);
-            // Navigate to home or dashboard
-            // this.router.navigateByUrl('/dashboard');
+            
           },
           error: (error) => {
             console.error('Login failed:', error);

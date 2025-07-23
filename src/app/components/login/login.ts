@@ -7,7 +7,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterLink, HttpClientModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -48,7 +48,6 @@ export class Login implements AfterViewInit {
             setTimeout(() => {
               this.router.navigateByUrl('/home');
             }, 1500);
-            
           },
           error: (error) => {
             console.error('Login failed:', error);

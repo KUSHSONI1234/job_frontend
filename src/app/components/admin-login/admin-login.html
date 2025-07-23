@@ -1,1 +1,42 @@
-<p>admin-login works!</p>
+<div *ngIf="successMessage" class="alert alert-success alert-fixed">
+  {{ successMessage }}
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger alert-fixed">
+  {{ errorMessage }}
+</div>
+
+
+
+<div class="login-container">
+  <h1>Recruiter Login</h1>
+  <p>Welcome back! Please sign in to continue</p>
+  <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="admin.email"
+        placeholder="Enter your email"
+        #firstNameInput
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="admin.password"
+        placeholder="Enter your password"
+        required
+      />
+    </div>
+
+    <button type="submit">Sign In</button>
+  </form>
+</div>

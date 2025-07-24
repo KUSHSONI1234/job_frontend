@@ -1,14 +1,11 @@
 .admin-dashboard {
   display: flex;
-  height: 100vh;
-  /* background-color: #0b0f19; */
+  height: auto;
   color: #fff;
 }
 
-
 .sidebar {
   width: 240px;
-  /* background-color: #101928; */
   padding: 30px 20px 0;
   border-right: 1px solid #1f2937;
 }
@@ -39,14 +36,25 @@
   max-width: 240px;
 }
 
-.sidebar ul li img{
+.sidebar ul li img {
+  width: 20px;
+  height: 20px;
   filter: invert(100%);
 }
 
 .sidebar ul li:hover {
-  background-color: #070719; /* Tailwind Blue-600 for rich contrast */
+  background-color: #070719; /* Dark blue hover */
   transform: translateX(5px);
-
 }
 
+.active {
+  background-color: #1e3a8a;
+  color: white;
+  border-radius: 5px;
+}
 
+.main-content {
+  flex: 1;
+  padding: 30px; /* Adds spacing inside the right side */
+
+}
